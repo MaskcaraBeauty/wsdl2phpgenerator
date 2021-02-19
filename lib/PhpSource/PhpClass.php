@@ -48,7 +48,7 @@ class PhpClass extends PhpElement
      * @var string[]
      * @access private
      */
-    private $implements;
+    private $implements = [];
 
     /**
      *
@@ -61,21 +61,21 @@ class PhpClass extends PhpElement
      *
      * @var array Array of constants key = name of constant value = value of constant
      */
-    private $constants;
+    private $constants = [];
 
     /**
      *
      * @var PhpVariable[]
      * @access private
      */
-    private $variables;
+    private $variables = [];
 
     /**
      *
      * @var PhpFunction[]
      * @access private
      */
-    private $functions;
+    private $functions = [];
 
     /**
      *
@@ -102,17 +102,17 @@ class PhpClass extends PhpElement
      */
     public function __construct($identifier, $classExists = false, $extends = '', PhpDocComment $comment = null, $final = false, $abstract = false)
     {
-        $this->dependencies = array();
+        $this->dependencies = [];
         $this->classExists = $classExists;
         $this->comment = $comment;
         $this->final = $final;
         $this->identifier = $identifier;
         $this->access = '';
         $this->extends = $extends;
-        $this->constants = array();
-        $this->variables = array();
-        $this->functions = array();
-        $this->implements = array();
+        $this->constants = [];
+        $this->variables = [];
+        $this->functions = [];
+        $this->implements = [];
         $this->indentionStr = '    '; // Use 4 spaces as indention, as requested by PSR-2
         $this->abstract = $abstract;
     }
