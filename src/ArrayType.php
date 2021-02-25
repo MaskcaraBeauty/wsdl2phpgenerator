@@ -237,7 +237,7 @@ class ArrayType extends ComplexType
                 false,
                 false
             ),
-            '  return is_countable($this->' . $this->field->getName() . ') ? count($this->' . $this->field->getName() . ') : ($this->' . $this->field->getName() . ' ? 1 : 0);',
+            '  return count($this->' . $this->field->getName() . ');',
             $countDock
         );
         $this->class->addFunction($count);

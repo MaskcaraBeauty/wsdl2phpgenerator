@@ -104,7 +104,8 @@ class ComplexType extends Type
 
             $comment = new PhpDocComment();
             $comment->setVar(PhpDocElementFactory::getVar($type, $name, ''));
-            $var = new PhpVariable('protected', $name, 'null', $comment);
+            $defaultVarVal = $member->isArray() ? '[]' : 'null';
+            $var = new PhpVariable('protected', $name, $defaultVarVal, $comment);
             $this->class->addVariable($var);
 
             if (!$member->getNullable()) {
@@ -165,7 +166,7 @@ class ComplexType extends Type
                     // If the type of a member is nullable we should allow passing null to the setter. If the type
                     // of the member is a class and not a primitive this is only possible if setter parameter has
                     // a default null value. We can detect whether the type is a class by checking the type hint.
-                    $member->getNullable() && !empty($typeHint)
+                    !$member->isArray() && $member->getNullable() && !empty($typeHint)
                 ),
                 $setterCode,
                 $setterComment
@@ -287,7 +288,9 @@ class ComplexType extends Type
             if (!empty($type) && $includeType) {
                 $parameterString = $type . ' ' . $parameterString;
             }
-            if ($defaultNull) {
+            if ($type === 'array') {
+                $parameterString .= ' = []';
+            } else if ($defaultNull) {
                 $parameterString .= ' = null';
             }
             $parameterStrings[] = $parameterString;
