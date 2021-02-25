@@ -69,6 +69,7 @@ class Variable
      */
     public function isArray()
     {
-        return substr($this->type, -2, 2) == '[]';
+        return substr($this->type, -2, 2) == '[]'
+            || (substr($this->type, 0, 7) == 'ArrayOf');
     }
 }
